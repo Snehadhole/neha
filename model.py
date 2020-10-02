@@ -62,11 +62,17 @@ df4["quality"] =  df4["quality"].map(mapping_quality)
 x = df4.drop("quality",axis=True)
 y = df4["quality"]
 
-clf = DecisionTreeClassifier(criterion="entropy", max_depth=5)
-clf.fit(x,y)
+from sklearn.linear_model import LinearRegression
+regressor = LinearRegression()
 
-pickle.dump(clf, open('model.pkl','wb'))
+#Fitting model with trainig data
+regressor.fit(X, y)
+pickle.dump(regressor, open('model.pkl','wb'))
 
+# Loading model to compare the results
 model = pickle.load(open('model.pkl','rb'))
+
+print(model.predict([[8.3,0.21,0.58,17.1,0.049,62,213,1.006,3.01,0.51,9.3,1]]))
+
 #
 print(model.predict([[8.3,0.21,0.58,17.1,0.049,62,213,1.006,3.01,0.51,9.3,1]]))
