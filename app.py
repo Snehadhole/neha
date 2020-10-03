@@ -14,6 +14,14 @@ def predict():
     '''
     For rendering results on HTML GUI
     '''
+    for i in request.form.values():
+        if (type(i) == float):
+            i = int(round(i))
+
+    def typeme(val):
+        if type(val) == str:
+            return (float(val))
+            
     int_features = [int(x) for x in request.form.values()]
     final_features = [np.array(int_features)]
     prediction = model.predict(final_features)
